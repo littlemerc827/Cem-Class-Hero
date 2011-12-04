@@ -25,3 +25,18 @@ function Update () {
 	}
 
 }
+
+function GUIShot() {
+if ((Time.time - lastShot) < 0.5) {
+			return;	
+	}
+
+	
+		lastShot = Time.time;
+		clone = Instantiate(projectile, transform.position, transform.rotation);
+		clone.velocity = transform.TransformDirection(Vector3(0,1.5,speed));
+		
+		Destroy(clone.gameObject,3);
+	
+
+}

@@ -24,6 +24,7 @@ function OnControllerColliderHit (hit : ControllerColliderHit) {
 	var bodyLayerMask = 1 << body.gameObject.layer;
 	if ((bodyLayerMask & pushLayers.value) == 0)
 		return;
+	
 		
 	// We dont want to push objects below us
 	if (hit.moveDirection.y < -0.3) 

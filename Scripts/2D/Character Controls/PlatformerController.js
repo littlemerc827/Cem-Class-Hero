@@ -1,9 +1,14 @@
 
 // Does this script currently respond to Input?
-var canControl = true;
+private var canControl = true;
 
 // The character will spawn at spawnPoint's position when needed.  This could be changed via a script at runtime to implement, e.g. waypoints/savepoints.
 var spawnPoint : Transform;
+
+// Will hold the HUD gameobject
+var HUD;
+
+//public var h : int;
 
 class PlatformerControllerMovement {
 	// The speed when walking 
@@ -21,7 +26,7 @@ class PlatformerControllerMovement {
 	var speedSmoothing = 5.0;
 
 	// This controls how fast the graphics of the character "turn around" when the player turns around using the controls.
-	var rotationSmoothing = 6.0;
+	var rotationSmoothing = 1.0;
 
 	// The current move direction in x-y.  This will always been (1,0,0) or (-1,0,0)
 	// The next line, @System.NonSerialized , tells Unity to not serialize the variable or show it in the inspector view.  Very handy for organization!
@@ -117,6 +122,9 @@ function Awake () {
 	movement.direction = transform.TransformDirection (Vector3.forward);
 	controller = GetComponent (CharacterController);
 	Spawn ();
+	
+	// Initailze HUD to the gameobject
+	HUD = GameObject.Find("HUD");
 }
 
 function Spawn () {
@@ -131,15 +139,26 @@ function Spawn () {
 
 function IncreaseJump() {
 	//Use this for jetpack upgrade implementation
-	jump.extraHeight = jump.extraHeight + 0.2F;
+	//jump.extraHeight = jump.extraHeight + 0.2F;
+	
+	//The following is the demo height:
+	jump.extraHeight = jump.extraHeight + 1F;
 }
 
 function OnDeath () {
+	
+	
+	// timing
 	Spawn ();
 }
 
 function UpdateSmoothedMovementDirection () {	
-	var h = Input.GetAxisRaw ("Horizontal");
+	//var h = Input.GetAxisRaw ("Horizontal");
+	// Pulls the horizontal movement value from HUD
+	var h = HUD.GetComponent(HeadsUpDisplay).h;
+	
+	
+	//print(h);
 	
 	if (!canControl)
 		h = 0.0;
@@ -200,7 +219,9 @@ function ApplyJumping () {
 
 function ApplyGravity () {
 	// Apply gravity
-	var jumpButton = Input.GetButton ("Jump");
+	//var jumpButton = Input.GetButton ("Jump");
+	
+	var jumpButton = HUD.GetComponent(HeadsUpDisplay).jump;
 	
 	if (!canControl)
 		jumpButton = false;
@@ -253,7 +274,8 @@ function UpdateEffects () {
 }
 
 function Update () {
-	if (Input.GetButtonDown ("Jump") && canControl) {
+	//if (Input.GetButtonDown ("Jump") && canControl) {
+	if (HUD.GetComponent(HeadsUpDisplay).jump && canControl) {
 		jump.lastButtonTime = Time.time;
 	}
 

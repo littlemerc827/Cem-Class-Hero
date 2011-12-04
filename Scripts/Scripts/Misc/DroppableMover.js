@@ -23,6 +23,6 @@ function Update ()
 	else
 	{
 		position += moveThisFrame;
-		transform.position = Vector3(position.x, position.y + 0.75, position.z);	
+		transform.position = Vector3(position.x + 0.75, position.y, position.z);	
 	}
 }

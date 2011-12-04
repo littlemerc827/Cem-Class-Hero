@@ -4,7 +4,7 @@
 
 function Update () 
 {
-	transform.Rotate (0, 45 * Time.deltaTime, 0);
+	transform.Rotate (45 * Time.deltaTime,45 * Time.deltaTime,45 * Time.deltaTime);
 }
 
 function OnBecameVisible()

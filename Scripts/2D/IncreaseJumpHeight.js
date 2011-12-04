@@ -7,6 +7,6 @@ function OnTriggerEnter(col:Collider) {
 		
 		//Destroy the corresponding collider so that player cannot
 		//continually increase jump height
-		Destroy(gameObject);
+		Destroy(transform.parent.gameObject);
 	}
 }

@@ -102,7 +102,7 @@ function Die ()
 	SendMessage("HidePlayer");
 	
 	// Relocate the player. We need to do this or the camera will keep trying to focus on the (invisible) player where he's standing on top of the FalloutDeath box collider.
-	transform.position = respawnPosition + Vector3.up;
+	transform.position = Vector3(respawnPosition.x, respawnPosition.y, 0) + Vector3.up;
 
 	yield WaitForSeconds(1.6);	// give the sound time to complete. 
 	
